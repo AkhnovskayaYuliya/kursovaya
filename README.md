@@ -13,3 +13,8 @@
 3. В Intellij Idea открыть командную строку, ввести команду "docker-compose up"
 5. Открыть дополнительную вкладку командной строки, ввести командку "java -jar aqa-shop.jar -port=8080"
 6. Открыть еще дополнительную командную строку и запустить авто-тесты командой "./gradlew test"
+## Итоги
+
+[итоги тестирования](https://github.com/AkhnovskayaYuliya/kursovaya/blob/main/docs/Report.md)
+
+[итоги автоматизации](https://github.com/AkhnovskayaYuliya/kursovaya/blob/main/docs/Summary.md)
