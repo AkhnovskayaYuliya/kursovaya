@@ -23,7 +23,7 @@ public class purchaseTest {
     }
 
 
-    @Test // 1 баг репорт
+    @Test // 1
     @SneakyThrows
     public void approvedCardTest() {
         var page = new Page();
