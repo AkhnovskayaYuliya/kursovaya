@@ -1,6 +1,4 @@
 package ru.netology.kursovaya.test;
-
-
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import ru.netology.kursovaya.data.DataHelper;
 import ru.netology.kursovaya.data.SQLHelper;
 import ru.netology.kursovaya.pages.Page;
-
 import static com.codeborne.selenide.Selenide.open;
 
 
