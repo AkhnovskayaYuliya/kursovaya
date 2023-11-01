@@ -1,18 +1,14 @@
 package ru.netology.kursovaya.pages;
-
-
 import com.codeborne.selenide.SelenideElement;
-
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+
 
 public class Page {
-    private static SelenideElement buttonBuy = $x("//*[@id='root']/div/button[1]/span");
+    private static SelenideElement buttonBuy = $(byText("Купить"));
 
-    public static PageContinue pageCont() {
+    public PageContinue pageCont() {
         buttonBuy.click();
         return new PageContinue();
     }
-
-
 }
