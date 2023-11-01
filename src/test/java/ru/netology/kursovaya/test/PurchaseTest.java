@@ -121,7 +121,7 @@ public class PurchaseTest {
         pageContinue.error("Истёк срок действия карты");
     }
 
-    @Test // 9 bug
+    @Test // 9 баг репорт
     public void fillTheMonthFieldWithTheValue00() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
@@ -170,7 +170,7 @@ public class PurchaseTest {
         pageContinue.error("Неверно указан срок действия карты");
     }
 
-    @Test // 13 баг репорт!
+    @Test // 13 
     public void fillTheYearFieldWithThePreviousYear() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
@@ -218,7 +218,7 @@ public class PurchaseTest {
         pageContinue.error("Неверный формат");
     }
 
-    @Test // 17 баг репорт
+    @Test // 17 
     public void fillTheYearFieldWithTheValue30() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
