@@ -1,6 +1,4 @@
 package ru.netology.kursovaya.test;
-
-
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import ru.netology.kursovaya.data.DataHelper;
 import ru.netology.kursovaya.data.SQLHelper;
 import ru.netology.kursovaya.pages.Page;
-
 import static com.codeborne.selenide.Selenide.open;
 
 
@@ -25,11 +22,11 @@ public class PurchaseTest {
     public void approvedCardTest() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.purchaseSuccessful("Операция одобрена Банком");
         String expected = "APPROVED";
         String actual = SQLHelper.getPaymentStatus();
@@ -41,11 +38,11 @@ public class PurchaseTest {
     public void declinedCardTest() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.declinedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.declinedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.declinedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.declinedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.declinedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.declinedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.declinedCardHolder().getCardNumber(),
+                DataHelper.declinedCardHolder().getMonth(),
+                DataHelper.declinedCardHolder().getYear(),
+                DataHelper.declinedCardHolder().getHolder(),
+                DataHelper.declinedCardHolder().getCvc());
         pageContinue.purchaseSuccessful("Карта заблокирована");
         String expected = "DECLINED";
         String actual = SQLHelper.getPaymentStatus();
@@ -56,11 +53,11 @@ public class PurchaseTest {
     public void leaveTheHolderFieldEmpty() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.declinedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.declinedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.declinedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue((String) null),
-                pageContinue.cvc.setValue(DataHelper.declinedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                null,
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Поле обязательно для заполнения");
     }
 
@@ -68,11 +65,11 @@ public class PurchaseTest {
     public void leaveTheYearFieldEmpty() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue((String) null),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                null,
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверный формат");
     }
 
@@ -80,11 +77,11 @@ public class PurchaseTest {
     public void leaveTheMonthFieldEmpty() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue((String) null),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                null,
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверный формат");
     }
 
@@ -92,11 +89,11 @@ public class PurchaseTest {
     public void leaveTheCardNumberEmpty() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue((String) null),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(null,
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверный формат");
     }
 
@@ -104,11 +101,11 @@ public class PurchaseTest {
     public void leaveTheCVCFieldEmpty() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue((String) null));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                null);
         pageContinue.error("Поле обязательно для заполнения");
     }
 
@@ -116,11 +113,11 @@ public class PurchaseTest {
     public void fillTheYearFieldWithTheValue00() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue("00"),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                "00",
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());;
         pageContinue.error("Истёк срок действия карты");
     }
 
@@ -128,11 +125,11 @@ public class PurchaseTest {
     public void fillTheMonthFieldWithTheValue00() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue("00"),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                "00",
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверный формат");
 
     }
@@ -141,11 +138,11 @@ public class PurchaseTest {
     public void fillTheCVCFieldWithTheValue00() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue("00"));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                "00");
         pageContinue.error("Неверный формат");
     }
 
@@ -153,11 +150,11 @@ public class PurchaseTest {
     public void fillTheMonthFieldWithValue13() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue("13"),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                "13",
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверно указан срок действия карты");
     }
 
@@ -165,11 +162,11 @@ public class PurchaseTest {
     public void fillTheMonthFieldWithThePreviousMonth() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue("09"),
-                pageContinue.yearDate.setValue("23"),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                "09",
+                "23",
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверно указан срок действия карты");
     }
 
@@ -177,11 +174,11 @@ public class PurchaseTest {
     public void fillTheYearFieldWithThePreviousYear() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue("22"),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                "22",
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Истёк срок действия карты");
     }
 
@@ -189,11 +186,11 @@ public class PurchaseTest {
     public void fillTheHolderFieldWithRussianLetters() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue("Вася Пупкин"),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                "Вася Пупкин",
+                DataHelper.approvedCardHolder().getCvc());;
         pageContinue.error("Неверный формат");
     }
 
@@ -201,11 +198,11 @@ public class PurchaseTest {
     public void fillTheHolderFieldWithNumbers() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue("123456"),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                "123456",
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверный формат");
     }
 
@@ -213,11 +210,11 @@ public class PurchaseTest {
     public void fillTheCVCFieldWithTwoNumbers() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue(DataHelper.approvedCardHolder().getYear()),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue("99"));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                DataHelper.approvedCardHolder().getYear(),
+                DataHelper.approvedCardHolder().getHolder(),
+                "99");
         pageContinue.error("Неверный формат");
     }
 
@@ -225,14 +222,13 @@ public class PurchaseTest {
     public void fillTheYearFieldWithTheValue30() {
         var pageContinue = new Page().pageCont();
         var holder = DataHelper.approvedCardHolder();
-        pageContinue.fillTheForm(pageContinue.cardNumber.setValue(DataHelper.approvedCardHolder().getCardNumber()),
-                pageContinue.monthDate.setValue(DataHelper.approvedCardHolder().getMonth()),
-                pageContinue.yearDate.setValue("30"),
-                pageContinue.cardHolderName.setValue(DataHelper.approvedCardHolder().getHolder()),
-                pageContinue.cvc.setValue(DataHelper.approvedCardHolder().getCvc()));
+        pageContinue.fillTheForm(DataHelper.approvedCardHolder().getCardNumber(),
+                DataHelper.approvedCardHolder().getMonth(),
+                "30",
+                DataHelper.approvedCardHolder().getHolder(),
+                DataHelper.approvedCardHolder().getCvc());
         pageContinue.error("Неверно указан срок действия карты");
     }
-
 
 }
 

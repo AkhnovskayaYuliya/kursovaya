@@ -1,23 +1,28 @@
 package ru.netology.kursovaya.pages;
 import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PageContinue {
 
-    public SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
-    public SelenideElement monthDate = $("[placeholder='08']");
-    public SelenideElement yearDate = $("[placeholder='22']");
-    public SelenideElement cardHolderName = $x("//*[@id='root']/div/form/fieldset/div[3]/span/span[1]/span/span/span[2]/input");
-    public SelenideElement cvc = $("[placeholder='999']");
-    public SelenideElement buttonNext = $(byText("Продолжить"));
-    public SelenideElement error = $(".input__sub");
+    private SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
+    private SelenideElement monthDate = $("[placeholder='08']");
+    private SelenideElement yearDate = $("[placeholder='22']");
+    private SelenideElement cardHolderName = $(byText("Владелец")).parent().$(".input__control");
+    private SelenideElement cvc = $("[placeholder='999']");
+    private SelenideElement buttonNext = $(byText("Продолжить"));
+    private SelenideElement error = $(".input__sub");
     private SelenideElement text = $(".notification__content");
 
-    public void fillTheForm(SelenideElement cardNumber, SelenideElement monthDate, SelenideElement yearDate, SelenideElement cardHolderName, SelenideElement cvc) {
+
+    public void fillTheForm(String numberCard, String month, String year, String holder, String cvv) {
+        cardNumber.setValue(numberCard);
+        monthDate.setValue(month);
+        yearDate.setValue(year);
+        cardHolderName.setValue(holder);
+        cvc.setValue(cvv);
         buttonNext.click();
     }
 
